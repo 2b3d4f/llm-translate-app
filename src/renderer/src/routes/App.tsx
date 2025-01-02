@@ -1,31 +1,34 @@
-// import electronLogo from './assets/electron.svg'
-import Versions from '@renderer/components/Versions'
+import { useState } from 'react'
+
 import { Button } from '@renderer/components/ui/button'
 import { ModeToggle } from '@renderer/components/mode-toggle'
+import { Textarea } from '@renderer/components/ui/textarea'
+import { Label } from '@renderer/components/ui/label'
 
 function App(): JSX.Element {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
 
   return (
     <>
-      <ModeToggle />
-      {/* <img src={electronLogo} alt="logo" /> */}
-      <div>Powered by electron-vite</div>
       <div>
-        Build an Electron app with React, Typescript, React Router, Tailwind CSS and shadcn/ui
+        <h1 className="text-2xl font-bold">Translator app</h1>
+        <div>
+          <ModeToggle />
+        </div>
       </div>
-      <p>
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
       <div>
-        <Button asChild>
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </Button>
-        <Button onClick={ipcHandle}>Send IPC</Button>
+        <Label>
+          Input
+          <Textarea className="resize-none grow"></Textarea>
+        </Label>
+        <Label>
+          Output
+          <Textarea className="resize-none" readOnly></Textarea>
+        </Label>
       </div>
-      <Versions></Versions>
+      <div>
+        <Button onClick={ipcHandle}>Translate</Button>
+      </div>
     </>
   )
 }
