@@ -5,7 +5,7 @@ import { ModeToggle } from '@renderer/components/mode-toggle'
 
 function Header(): JSX.Element {
   return (
-    <header className='flex justify-between'>
+    <header className="flex justify-between">
       <Button variant="link" asChild>
         <Link to="/">
           <h1 className="text-2xl font-bold">Translator app</h1>
