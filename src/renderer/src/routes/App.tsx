@@ -11,7 +11,7 @@ function App(): JSX.Element {
   const echo = trpcReact.echo.useMutation()
   // const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
 
-  const ipcHandle = async (): Promise<void> => {
+  const ipcHandle = (): void => {
     const result = echo.mutate({ text: text })
     console.log(result)
   }
