@@ -1,25 +1,31 @@
 import { useState } from 'react'
+import { trpcReact } from '@renderer/trpc'
+import Header from '@renderer/components/Header'
 
 import { Button } from '@renderer/components/ui/button'
-import { ModeToggle } from '@renderer/components/mode-toggle'
 import { Textarea } from '@renderer/components/ui/textarea'
 import { Label } from '@renderer/components/ui/label'
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  const [text, setText] = useState('')
+  const echo = trpcReact.echo.useMutation()
+  // const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+
+  const ipcHandle = async (): Promise<void> => {
+    const result = echo.mutate({ text: text })
+    console.log(result)
+  }
 
   return (
     <>
-      <div>
-        <h1 className="text-2xl font-bold">Translator app</h1>
-        <div>
-          <ModeToggle />
-        </div>
-      </div>
+      <Header />
       <div>
         <Label>
           Input
-          <Textarea className="resize-none grow"></Textarea>
+          <Textarea
+            className="resize-none grow"
+            onChange={(e) => setText(e.target.value)}
+          ></Textarea>
         </Label>
         <Label>
           Output
