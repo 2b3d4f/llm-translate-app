@@ -14,7 +14,7 @@ export const router = t.router({
     console.log(`API Says: ${text}`)
     return { text: `API Says: ${text}` }
   }),
-  versions: procedure.query(async () => {
+  versions: procedure.query(() => {
     const { electron, chrome, node } = process.versions
     console.log({ electron, chrome, node })
 
