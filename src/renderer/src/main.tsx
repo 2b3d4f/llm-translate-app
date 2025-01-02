@@ -2,28 +2,13 @@ import './assets/main.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HashRouter, Routes, Route } from 'react-router'
-import App from './App'
-import Second from './Second'
-import { Link } from 'react-router'
+import { createHashRouter, RouterProvider } from 'react-router'
+import { routes } from './routes'
+
+const router = createHashRouter(routes)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <HashRouter>
-      <header>
-        <ul>
-          <li>
-            <Link to="/">Home page</Link>
-          </li>
-          <li>
-            <Link to="/second">Second page</Link>
-          </li>
-        </ul>
-      </header>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/second" element={<Second />} />
-      </Routes>
-    </HashRouter>
+    <RouterProvider router={router} />
   </React.StrictMode>
 )
