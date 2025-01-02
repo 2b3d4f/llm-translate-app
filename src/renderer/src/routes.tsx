@@ -1,7 +1,7 @@
 import { createRoutesFromElements, Route } from 'react-router'
-import App from './App'
-import Layout from './Layouts'
-import Second from './Second'
+import App from '@renderer/routes/App'
+import Layout from '@renderer/layouts/Layout'
+import Second from '@renderer/routes/Second'
 
 export const routes = createRoutesFromElements(
   <Route element={<Layout />}>
