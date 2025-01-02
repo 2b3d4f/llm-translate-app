@@ -13,6 +13,12 @@ export const router = t.router({
     const { text } = request.input
     console.log(`API Says: ${text}`)
     return { text: `API Says: ${text}` }
+  }),
+  versions: procedure.query(async () => {
+    const { electron, chrome, node } = process.versions
+    console.log({ electron, chrome, node })
+
+    return { electron, chrome, node }
   })
 })
 

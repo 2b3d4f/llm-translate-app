@@ -1,7 +1,13 @@
-import { useState } from 'react'
+import { trpcReact } from '@renderer/trpc'
 
 function Versions(): JSX.Element {
-  const [versions] = useState(window.electron.process.versions)
+  const versionsQuery = trpcReact.versions.useQuery()
+
+  const versions = versionsQuery.data ?? {
+    electron: '0.0.0',
+    chrome: '0.0.0',
+    node: '0.0.0'
+  }
 
   return (
     <ul className="versions">
