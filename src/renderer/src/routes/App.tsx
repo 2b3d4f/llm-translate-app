@@ -7,13 +7,6 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 import { Button } from '@renderer/components/ui/button'
 import { Textarea } from '@renderer/components/ui/textarea'
 import { Label } from '@renderer/components/ui/label'
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue
-// } from '@renderer/components/ui/select'
 import {
   Command,
   CommandEmpty,
@@ -131,21 +124,6 @@ function App(): JSX.Element {
                 </Command>
               </PopoverContent>
             </Popover>
-            {/* <Select
-              value={translationState?.targetLang}
-              onValueChange={translationState?.setTargetLang}
-            >
-              <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Translate to..." />
-              </SelectTrigger>
-              <SelectContent>
-                {languages.data?.map(({ language, name }) => (
-                  <SelectItem key={language} value={language}>
-                    {name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select> */}
             <Button
               onClick={handleTranslate}
               disabled={
