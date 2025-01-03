@@ -75,7 +75,8 @@
     padding-left: env(titlebar-area-x, 0);
     -webkit-app-region: drag;
     user-select: none;
-    button, a {
+    button,
+    a {
       -webkit-app-region: no-drag;
       max-height: env(titlebar-area-height, 50px);
     }
