@@ -16,19 +16,9 @@ const translateInput = z.object({
 })
 
 export const router = t.router({
-  ping: procedure.query(() => {
-    console.log('pong')
-    return 'pong'
-  }),
-  echo: procedure.input(z.object({ text: z.string() })).mutation((request) => {
-    const { text } = request.input
-    console.log(`API Says: ${text}`)
-    return { text: `API Says: ${text}` }
-  }),
   versions: procedure.query(() => {
     const { electron, chrome, node } = process.versions
     console.log({ electron, chrome, node })
-
     return { electron, chrome, node }
   }),
   translate: procedure.input(translateInput).mutation(async (request) => {
