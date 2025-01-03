@@ -102,12 +102,15 @@ function App(): JSX.Element {
                       {languages.data?.map((lang) => (
                         <CommandItem
                           key={lang.language}
-                          value={lang.language}
+                          value={lang.name}
                           onSelect={(currentValue) => {
+                            const selectedLang = languages.data.find(
+                              (l) => l.name === currentValue
+                            )?.language
                             translationState?.setTargetLang(
-                              currentValue === translationState.targetLang
+                              selectedLang === translationState.targetLang
                                 ? undefined
-                                : currentValue
+                                : selectedLang
                             )
                             setOpen(false)
                           }}
