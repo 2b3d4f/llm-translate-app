@@ -1,7 +1,8 @@
-import { Button } from '@renderer/components/ui/button'
 import { Link } from 'react-router'
-import { HelpCircle, Home } from 'lucide-react'
+import { Button } from '@renderer/components/ui/button'
+import { Home, Settings } from 'lucide-react'
 import { ModeToggle } from '@renderer/components/mode-toggle'
+import AboutDialog from '@renderer/components/AboutDialog'
 
 function TitleBar(): JSX.Element {
   return (
@@ -22,6 +23,7 @@ function TitleBar(): JSX.Element {
               <Settings absoluteStrokeWidth strokeWidth={1.5} />
             </Link>
           </Button>
+          <AboutDialog />
         </div>
       </header>
     </>
