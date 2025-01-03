@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { trpcReact } from '@renderer/trpc'
 import Header from '@renderer/components/Header'
+import { TranslationContext } from '@renderer/layouts/Layout'
+
+import { cn } from '@renderer/lib/utils'
 
 import { Button } from '@renderer/components/ui/button'
 import { Textarea } from '@renderer/components/ui/textarea'
@@ -16,10 +19,8 @@ import {
 const excludedLanguages = ['ZH', 'EN', 'PT']
 
 function App(): JSX.Element {
-  const [text, setText] = useState('')
-  const [translatedText, setTranslatedText] = useState('')
+  const translationState = useContext(TranslationContext)
   const [isTranslating, setIsTranslating] = useState(false)
-  const [targetLang, setTargetLang] = useState<string | undefined>(undefined)
   const translate = trpcReact.translate.useMutation()
   const languagesQuery = trpcReact.getSupportedLanguages.useQuery()
   const languages = {
@@ -30,60 +31,92 @@ function App(): JSX.Element {
     setIsTranslating(true)
     try {
       const result = await translate.mutateAsync({
-        text: text,
-        targetLang: targetLang as string,
+        text: translationState?.text ?? '',
+        targetLang: translationState?.targetLang as string,
         model: 'gpt-4o-mini'
       })
-      setTranslatedText(result.translatedText)
+      translationState?.setTranslatedText(result.translatedText)
     } catch (error) {
       console.error('Translation failed:', error)
-      setTranslatedText(`Translation failed`)
+      translationState?.setTranslatedText('Translation failed')
     } finally {
       setIsTranslating(false)
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      if (translationState?.text.trim() !== '' && !isTranslating && translationState?.targetLang) {
+        handleTranslate()
+      }
     }
   }
 
   return (
     <>
       <Header />
-      <div>
-        <Label>
-          Input
+      <div className="grow grid grid-cols-2 m-4 gap-4">
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="input">Input</Label>
           <Textarea
-            className="resize-none grow"
-            onChange={(e) => setText(e.target.value)}
+            className={cn(
+              'resize-none grow',
+              (translationState?.text ?? '').split('\n').length > 10
+                ? '!text-sm'
+                : (translationState?.text ?? '').split('\n').length > 5
+                  ? '!text-base'
+                  : '!text-lg'
+            )}
+            value={translationState?.text}
+            onChange={(e) => translationState?.setText(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Enter text to translate"
+            id="input"
           ></Textarea>
-        </Label>
-        <Label>
-          Output
+          <div className="flex gap-2">
+            <Select
+              value={translationState?.targetLang}
+              onValueChange={translationState?.setTargetLang}
+            >
+              <SelectTrigger className="flex-1">
+                <SelectValue placeholder="Translate to..." />
+              </SelectTrigger>
+              <SelectContent>
+                {languages.data?.map(({ language, name }) => (
+                  <SelectItem key={language} value={language}>
+                    {name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button
+              onClick={handleTranslate}
+              disabled={
+                !translationState?.text.trim() || isTranslating || !translationState?.targetLang
+              }
+              className="shrink-0"
+            >
+              Translate
+            </Button>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="output">Output</Label>
           <Textarea
-            className="resize-none"
+            className={cn(
+              'resize-none grow',
+              (translationState?.text ?? '').split('\n').length > 10
+                ? '!text-sm'
+                : (translationState?.text ?? '').split('\n').length > 5
+                  ? '!text-base'
+                  : '!text-lg'
+            )}
             readOnly
-            value={translatedText}
+            value={translationState?.translatedText}
             placeholder={isTranslating ? 'Translating...' : 'Translation will appear here'}
+            id="output"
           ></Textarea>
-        </Label>
-      </div>
-      <div>
-        <Select onValueChange={setTargetLang}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Language" />
-          </SelectTrigger>
-          <SelectContent>
-            {languages.data?.map(({ language, name }) => (
-              <SelectItem key={language} value={language}>
-                {name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button
-          onClick={handleTranslate}
-          disabled={text.trim() === '' || isTranslating || !targetLang}
-        >
-          Translate
-        </Button>
+        </div>
       </div>
     </>
   )
