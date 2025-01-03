@@ -6,18 +6,18 @@ import { ModeToggle } from '@renderer/components/mode-toggle'
 function TitleBar(): JSX.Element {
   return (
     <>
-      <header className="flex justify-between *:items-center titlebar px-2 ">
+      <header className="flex justify-between *:items-center titlebar px-4 ">
         <div className="flex gap-2">
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon" className="rounded-none w-[44px]" asChild>
             <Link to="/">
               <Home absoluteStrokeWidth strokeWidth={1.5} />
             </Link>
           </Button>
           <h1 className="text-[12px]">Translator app</h1>
         </div>
-        <div className="flex gap-2">
+        <div>
           <ModeToggle />
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="ghost" size="sm" className="rounded-none w-[44px]" asChild>
             <Link to="/about">
               <HelpCircle absoluteStrokeWidth strokeWidth={1.5} />
             </Link>
