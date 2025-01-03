@@ -20,8 +20,12 @@ function createWindow(): void {
     // expose window controlls in Windows/Linux
     ...(process.platform !== 'darwin'
       ? {
+          // titleBarOverlay: {
+          //   color: 'rgba(0, 0, 0, 0)'
+          // }
           titleBarOverlay: {
-            color: 'rgba(0, 0, 0, 0)'
+            color: 'rgb(0, 0, 0)',
+            symbolColor: 'rgb(255, 255, 255)'
           }
         }
       : {}),
