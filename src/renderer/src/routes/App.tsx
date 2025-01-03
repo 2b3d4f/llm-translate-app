@@ -2,8 +2,6 @@ import { useContext, useState } from 'react'
 import { trpcReact } from '@renderer/trpc'
 import { TranslationContext } from '@renderer/layouts/Layout'
 
-import { cn } from '@renderer/lib/utils'
-
 import { Button } from '@renderer/components/ui/button'
 import { Textarea } from '@renderer/components/ui/textarea'
 import { Label } from '@renderer/components/ui/label'
