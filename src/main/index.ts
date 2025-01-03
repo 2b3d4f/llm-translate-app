@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { createIPCHandler } from 'electron-trpc/main'
 import { router } from './api'
 import icon from '../../resources/icon.png?asset'
+import { nativeTheme } from 'electron/main'
 
 function createWindow(): void {
   // Create the browser window.
@@ -20,12 +21,9 @@ function createWindow(): void {
     // expose window controlls in Windows/Linux
     ...(process.platform !== 'darwin'
       ? {
-          // titleBarOverlay: {
-          //   color: 'rgba(0, 0, 0, 0)'
-          // }
           titleBarOverlay: {
-            color: 'rgb(0, 0, 0)',
-            symbolColor: 'rgb(255, 255, 255)'
+            color: nativeTheme.shouldUseDarkColors ? 'rgba(0, 0, 0, 0)' : 'rgba(255, 255, 255, 0)',
+            symbolColor: nativeTheme.shouldUseDarkColors ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'
           }
         }
       : {}),
@@ -36,6 +34,14 @@ function createWindow(): void {
   })
 
   createIPCHandler({ router, windows: [mainWindow] })
+
+  nativeTheme.on('updated', () => {
+    console.log('Native theme updated')
+    mainWindow.setTitleBarOverlay({
+      color: nativeTheme.shouldUseDarkColors ? 'rgba(0, 0, 0, 0)' : 'rgba(255, 255, 255, 0)',
+      symbolColor: nativeTheme.shouldUseDarkColors ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'
+    })
+  })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
