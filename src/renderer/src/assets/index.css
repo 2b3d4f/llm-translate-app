@@ -59,8 +59,8 @@
   body {
     @apply h-dvh;
   }
-  #root, main {
-    @apply h-full;
+  #root {
+    @apply h-full flex flex-col;
   }
 
 }
