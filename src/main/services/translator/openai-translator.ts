@@ -14,7 +14,7 @@ export class OpenAITranslator implements TranslationService {
   }
 
   async translate(
-    input: string,
+    text: string,
     targetLang: LanguageCode,
     model: ChatCompletionCreateParams['model']
   ): Promise<TranslationResponse> {
@@ -35,7 +35,7 @@ export class OpenAITranslator implements TranslationService {
           },
           {
             role: 'user',
-            content: `<source_text>${input}</source_text><target_lang>${mappedLanguage}</target_lang>`
+            content: `<source_text>${text}</source_text><target_lang>${mappedLanguage}</target_lang>`
           }
         ],
         response_format: zodResponseFormat(TranslateSchema, 'translate')
