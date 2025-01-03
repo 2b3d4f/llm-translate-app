@@ -1,25 +1,22 @@
 import { trpcReact } from '@renderer/trpc'
 
-import Versions from '@renderer/components/Versions'
 import { Alert, AlertDescription, AlertTitle } from '@renderer/components/ui/alert'
-
 import { Button } from '@renderer/components/ui/button'
 import { Sun, Moon, Laptop, Terminal } from 'lucide-react'
 
-function About(): JSX.Element {
+function Setting(): JSX.Element {
   const setNativeThemeDark = trpcReact.setNativeThemeDark.useMutation()
   const setNativeThemeLight = trpcReact.setNativeThemeLight.useMutation()
   const setNativeThemeSystem = trpcReact.setNativeThemeSystem.useMutation()
 
   return (
     <>
-      <Versions />
       <div>
         <Alert>
           <Terminal className="h-4 w-4" />
-          <AlertTitle>Debug Controls</AlertTitle>
+          <AlertTitle>Debug Zone</AlertTitle>
           <AlertDescription>
-            The following buttons are for debugging purposes only. Use at your own discretion.
+            The following options are for debugging purposes only. Use at your own discretion.
           </AlertDescription>
         </Alert>
         <Button variant={'ghost'} size={'sm'} onClick={() => setNativeThemeLight.mutate()}>
@@ -43,4 +40,4 @@ function About(): JSX.Element {
   )
 }
 
-export default About
+export default Setting
