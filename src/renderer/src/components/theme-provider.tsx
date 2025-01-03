@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { trpcReact } from '@renderer/trpc'
 
 type Theme = 'dark' | 'light' | 'system'
 
@@ -30,6 +31,10 @@ export function ThemeProvider({
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   )
 
+  const setNativeThemeDark = trpcReact.setNativeThemeDark.useMutation()
+  const setNativeThemeLight = trpcReact.setNativeThemeLight.useMutation()
+  const setNativeThemeSystem = trpcReact.setNativeThemeSystem.useMutation()
+
   useEffect(() => {
     const root = window.document.documentElement
 
@@ -46,6 +51,27 @@ export function ThemeProvider({
 
     root.classList.add(theme)
   }, [theme])
+
+  useEffect(() => {
+    const updateNativeTheme = async (): Promise<void> => {
+      try {
+        switch (theme) {
+          case 'light':
+            await setNativeThemeLight.mutateAsync()
+            break
+          case 'dark':
+            await setNativeThemeDark.mutateAsync()
+            break
+          case 'system':
+            await setNativeThemeSystem.mutateAsync()
+            break
+        }
+      } catch (error) {
+        console.error('Failed to update native theme:', error)
+      }
+    }
+    void updateNativeTheme()
+  }, [theme, setNativeThemeDark, setNativeThemeLight, setNativeThemeSystem])
 
   const value = {
     theme,

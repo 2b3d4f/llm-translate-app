@@ -1,5 +1,3 @@
-import { trpcReact } from '@renderer/trpc'
-
 import { Moon, Sun } from 'lucide-react'
 import { Button } from '@renderer/components/ui/button'
 import {
@@ -12,24 +10,6 @@ import { useTheme } from '@renderer/components/theme-provider'
 
 export function ModeToggle(): JSX.Element {
   const { setTheme } = useTheme()
-  const setNativeThemeDark = trpcReact.setNativeThemeDark.useMutation()
-  const setNativeThemeLight = trpcReact.setNativeThemeLight.useMutation()
-  const setNativeThemeSystem = trpcReact.setNativeThemeSystem.useMutation()
-
-  const handleThemeChange = async (theme: 'light' | 'dark' | 'system'): Promise<void> => {
-    setTheme(theme)
-    switch (theme) {
-      case 'light':
-        await setNativeThemeLight.mutateAsync()
-        break
-      case 'dark':
-        await setNativeThemeDark.mutateAsync()
-        break
-      case 'system':
-        await setNativeThemeSystem.mutateAsync()
-        break
-    }
-  }
 
   return (
     <DropdownMenu>
@@ -49,9 +29,9 @@ export function ModeToggle(): JSX.Element {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => handleThemeChange('light')}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleThemeChange('dark')}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleThemeChange('system')}>System</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
