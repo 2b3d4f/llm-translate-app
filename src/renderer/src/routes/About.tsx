@@ -5,7 +5,6 @@ import { Alert, AlertDescription, AlertTitle } from '@renderer/components/ui/ale
 
 import { Button } from '@renderer/components/ui/button'
 import { Sun, Moon, Laptop, Terminal } from 'lucide-react'
-import ComboboxDemo from '@renderer/components/ComboboxDemo'
 
 function About(): JSX.Element {
   const setNativeThemeDark = trpcReact.setNativeThemeDark.useMutation()
@@ -15,7 +14,6 @@ function About(): JSX.Element {
   return (
     <>
       <Versions />
-      <ComboboxDemo />
       <div>
         <Alert>
           <Terminal className="h-4 w-4" />
