@@ -19,8 +19,8 @@ export class OpenAITranslator implements TranslationService {
     model: ChatCompletionCreateParams['model']
   ): Promise<TranslationResponse> {
     const TranslateSchema = z.object({
-      translated_text: z.string(),
-      target_lang: z.string()
+      translated_text: z.string().describe('The translated text'),
+      target_lang: z.string().describe('The target language')
     })
 
     try {
@@ -35,7 +35,7 @@ export class OpenAITranslator implements TranslationService {
           },
           {
             role: 'user',
-            content: `<source_text>${text}</source_text><target_lang>${mappedLanguage}</target_lang>`
+            content: `<source_text>${text}</source_text>\n<target_lang>${mappedLanguage}</target_lang>\nTranslate source_text into target_lang.`
           }
         ],
         response_format: zodResponseFormat(TranslateSchema, 'translate')
