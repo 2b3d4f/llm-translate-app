@@ -71,6 +71,9 @@ function App(): JSX.Element {
             placeholder="Enter text to translate"
             id="input"
           ></Textarea>
+          <p className="text-sm text-muted-foreground">
+            Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to translate
+          </p>
           <div className="flex gap-2">
             <Select
               value={translationState?.targetLang}
