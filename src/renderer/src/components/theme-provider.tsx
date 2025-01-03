@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { trpcReact } from '@renderer/trpc'
 
 type Theme = 'dark' | 'light' | 'system'
 
@@ -29,22 +30,57 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   )
+  const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>(
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  )
+
+  const setNativeThemeDark = trpcReact.setNativeThemeDark.useMutation()
+  const setNativeThemeLight = trpcReact.setNativeThemeLight.useMutation()
+  const setNativeThemeSystem = trpcReact.setNativeThemeSystem.useMutation()
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleChange = (e: MediaQueryListEvent): void => {
+      setSystemTheme(e.matches ? 'dark' : 'light')
+    }
+
+    mediaQuery.addEventListener('change', handleChange)
+    return (): void => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
 
   useEffect(() => {
     const root = window.document.documentElement
-
     root.classList.remove('light', 'dark')
 
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
+    const effectiveTheme = theme === 'system' ? systemTheme : theme
+    root.classList.add(effectiveTheme)
+  }, [theme, systemTheme])
 
-      root.classList.add(systemTheme)
-      return
+  useEffect(() => {
+    const updateNativeTheme = async (): Promise<void> => {
+      if (
+        !setNativeThemeDark.isLoading &&
+        !setNativeThemeLight.isLoading &&
+        !setNativeThemeSystem.isLoading
+      ) {
+        try {
+          switch (theme) {
+            case 'light':
+              await setNativeThemeLight.mutateAsync()
+              break
+            case 'dark':
+              await setNativeThemeDark.mutateAsync()
+              break
+            case 'system':
+              await setNativeThemeSystem.mutateAsync()
+              break
+          }
+        } catch (error) {
+          console.error('Failed to update native theme:', error)
+        }
+      }
     }
-
-    root.classList.add(theme)
+    void updateNativeTheme()
   }, [theme])
 
   const value = {
