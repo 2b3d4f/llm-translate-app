@@ -46,17 +46,17 @@ export const router = t.router({
   getSupportedLanguages: procedure.query(() => {
     return translator.getSupportedLanguages()
   }),
-  setNativeThemeDark: procedure.mutation(() => {
+  setNativeThemeDark: procedure.mutation(async () => {
     nativeTheme.themeSource = 'dark'
     console.log('Native theme set to dark')
     return nativeTheme.shouldUseDarkColors
   }),
-  setNativeThemeLight: procedure.mutation(() => {
+  setNativeThemeLight: procedure.mutation(async () => {
     nativeTheme.themeSource = 'light'
     console.log('Native theme set to light')
     return nativeTheme.shouldUseDarkColors
   }),
-  setNativeThemeSystem: procedure.mutation(() => {
+  setNativeThemeSystem: procedure.mutation(async () => {
     nativeTheme.themeSource = 'system'
     console.log('Native theme set to system')
     return nativeTheme.shouldUseDarkColors
