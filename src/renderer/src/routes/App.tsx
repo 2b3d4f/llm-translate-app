@@ -1,23 +1,28 @@
 import { useContext, useState } from 'react'
 import { trpcReact } from '@renderer/trpc'
+import { cn } from '@renderer/lib/utils'
 import { TranslationContext } from '@renderer/layouts/Layout'
+import { Check, ChevronsUpDown } from 'lucide-react'
 
 import { Button } from '@renderer/components/ui/button'
 import { Textarea } from '@renderer/components/ui/textarea'
 import { Label } from '@renderer/components/ui/label'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@renderer/components/ui/select'
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList
+} from '@renderer/components/ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from '@renderer/components/ui/popover'
 
 const excludedLanguages = ['ZH', 'EN', 'PT']
 
 function App(): JSX.Element {
   const translationState = useContext(TranslationContext)
   const [isTranslating, setIsTranslating] = useState(false)
+  const [open, setOpen] = useState(false)
   const translate = trpcReact.translate.useMutation()
   const languagesQuery = trpcReact.getSupportedLanguages.useQuery()
   const languages = {
@@ -66,21 +71,59 @@ function App(): JSX.Element {
             Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to translate
           </p>
           <div className="flex gap-2">
-            <Select
-              value={translationState?.targetLang}
-              onValueChange={translationState?.setTargetLang}
-            >
-              <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Translate to..." />
-              </SelectTrigger>
-              <SelectContent>
-                {languages.data?.map(({ language, name }) => (
-                  <SelectItem key={language} value={language}>
-                    {name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={'outline'}
+                  role="combobox"
+                  aria-expanded={open}
+                  className="w-full justify-between"
+                >
+                  {translationState?.targetLang
+                    ? languages.data?.find((lang) => lang.language === translationState.targetLang)
+                        ?.name
+                    : 'Select language...'}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0">
+                <Command>
+                  <CommandInput placeholder="Search language..." className="h-9" />
+                  <CommandList>
+                    <CommandEmpty>No language found.</CommandEmpty>
+                    <CommandGroup>
+                      {languages.data?.map((lang) => (
+                        <CommandItem
+                          key={lang.language}
+                          value={lang.name}
+                          onSelect={(currentValue) => {
+                            const selectedLang = languages.data.find(
+                              (l) => l.name === currentValue
+                            )?.language
+                            translationState?.setTargetLang(
+                              selectedLang === translationState.targetLang
+                                ? undefined
+                                : selectedLang
+                            )
+                            setOpen(false)
+                          }}
+                        >
+                          {lang.name}
+                          <Check
+                            className={cn(
+                              'ml-auto',
+                              translationState?.targetLang === lang.language
+                                ? 'opacity-100'
+                                : 'opacity-0'
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             <Button
               onClick={handleTranslate}
               disabled={
