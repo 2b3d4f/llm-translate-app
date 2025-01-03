@@ -57,14 +57,7 @@ function App(): JSX.Element {
         <div className="flex flex-col gap-2">
           <Label htmlFor="input">Input</Label>
           <Textarea
-            className={cn(
-              'resize-none grow',
-              (translationState?.text ?? '').split('\n').length > 10
-                ? '!text-sm'
-                : (translationState?.text ?? '').split('\n').length > 5
-                  ? '!text-base'
-                  : '!text-lg'
-            )}
+            className="resize-none grow"
             value={translationState?.text}
             onChange={(e) => translationState?.setText(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -104,14 +97,7 @@ function App(): JSX.Element {
         <div className="flex flex-col gap-2">
           <Label htmlFor="output">Output</Label>
           <Textarea
-            className={cn(
-              'resize-none grow',
-              (translationState?.text ?? '').split('\n').length > 10
-                ? '!text-sm'
-                : (translationState?.text ?? '').split('\n').length > 5
-                  ? '!text-base'
-                  : '!text-lg'
-            )}
+            className="resize-none grow"
             readOnly
             value={translationState?.translatedText}
             placeholder={isTranslating ? 'Translating...' : 'Translation will appear here'}
