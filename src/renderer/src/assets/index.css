@@ -50,6 +50,15 @@
 }
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
