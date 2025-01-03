@@ -2,6 +2,7 @@ import z from 'zod'
 import { initTRPC } from '@trpc/server'
 import { OpenAITranslator } from './services/translator/openai-translator'
 import { LanguageCode } from './services/translator/languages'
+import { nativeTheme } from 'electron'
 
 const t = initTRPC.create({ isServer: true })
 const procedure = t.procedure
@@ -44,6 +45,21 @@ export const router = t.router({
   }),
   getSupportedLanguages: procedure.query(() => {
     return translator.getSupportedLanguages()
+  }),
+  setNativeThemeDark: procedure.query(() => {
+    nativeTheme.themeSource = 'dark'
+    console.log('Native theme set to dark')
+    return nativeTheme.shouldUseDarkColors
+  }),
+  setNativeThemeLight: procedure.query(() => {
+    nativeTheme.themeSource = 'light'
+    console.log('Native theme set to light')
+    return nativeTheme.shouldUseDarkColors
+  }),
+  setNativeThemeSystem: procedure.query(() => {
+    nativeTheme.themeSource = 'system'
+    console.log('Native theme set to system')
+    return nativeTheme.shouldUseDarkColors
   })
 })
 
