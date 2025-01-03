@@ -18,12 +18,12 @@ const translateInput = z.object({
 export const router = t.router({
   versions: procedure.query(() => {
     const { electron, chrome, node } = process.versions
-    console.log({ electron, chrome, node })
+    // console.log({ electron, chrome, node })
     return { electron, chrome, node }
   }),
   translate: procedure.input(translateInput).mutation(async (request) => {
     const { text, targetLang, model } = request.input
-    console.log(`Translating to ${targetLang}: ${text}`)
+    // console.log(`Translating to ${targetLang}: ${text}`)
 
     try {
       const result = await translator.translate(text, targetLang as LanguageCode, model)
@@ -38,17 +38,17 @@ export const router = t.router({
   }),
   setNativeThemeDark: procedure.mutation(async () => {
     nativeTheme.themeSource = 'dark'
-    console.log('Native theme set to dark')
+    // console.log('Native theme set to dark')
     return nativeTheme.shouldUseDarkColors
   }),
   setNativeThemeLight: procedure.mutation(async () => {
     nativeTheme.themeSource = 'light'
-    console.log('Native theme set to light')
+    // console.log('Native theme set to light')
     return nativeTheme.shouldUseDarkColors
   }),
   setNativeThemeSystem: procedure.mutation(async () => {
     nativeTheme.themeSource = 'system'
-    console.log('Native theme set to system')
+    // console.log('Native theme set to system')
     return nativeTheme.shouldUseDarkColors
   })
 })

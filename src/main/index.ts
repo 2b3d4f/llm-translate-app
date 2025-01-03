@@ -36,7 +36,7 @@ function createWindow(): void {
   createIPCHandler({ router, windows: [mainWindow] })
 
   nativeTheme.on('updated', () => {
-    console.log('Native theme updated')
+    // console.log('Native theme updated')
     mainWindow.setTitleBarOverlay({
       color: nativeTheme.shouldUseDarkColors ? 'rgba(0, 0, 0, 0)' : 'rgba(255, 255, 255, 0)',
       symbolColor: nativeTheme.shouldUseDarkColors ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'
@@ -76,7 +76,7 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  // ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
 
