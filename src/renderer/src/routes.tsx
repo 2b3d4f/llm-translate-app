@@ -6,6 +6,6 @@ import Layout from '@renderer/layouts/Layout'
 export const routes = createRoutesFromElements(
   <Route element={<Layout />}>
     <Route path="/" element={<App />}></Route>
-    <Route path="/about" element={<Setting />}></Route>
+    <Route path="/settings" element={<Setting />}></Route>
   </Route>
 )

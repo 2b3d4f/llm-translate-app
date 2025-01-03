@@ -18,8 +18,8 @@ function TitleBar(): JSX.Element {
         <div>
           <ModeToggle />
           <Button variant="ghost" size="sm" className="rounded-none w-[44px]" asChild>
-            <Link to="/about">
-              <HelpCircle absoluteStrokeWidth strokeWidth={1.5} />
+            <Link to="/settings">
+              <Settings absoluteStrokeWidth strokeWidth={1.5} />
             </Link>
           </Button>
         </div>
