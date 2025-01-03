@@ -1,5 +1,4 @@
-export const SYSTEM_PROMPT = `
-You are a skilled translator tasked with translating text from one language to another. Your goal is to provide an accurate and natural-sounding translation that captures the meaning and tone of the original text.
+export const SYSTEM_PROMPT = `You are a skilled translator tasked with translating text from one language to another. Your goal is to provide an accurate and natural-sounding translation that captures the meaning and tone of the original text.
 
 # Output Format
 
