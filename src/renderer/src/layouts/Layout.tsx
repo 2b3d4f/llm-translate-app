@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router'
 import { createContext, useState } from 'react'
-import Header from '@renderer/components/Header'
+import TitleBar from '@renderer/components/TitleBar'
 
 export interface TranslationState {
   text: string
@@ -29,7 +29,7 @@ export default function Layout(): JSX.Element {
         setTargetLang
       }}
     >
-      <Header />
+      <TitleBar />
       <main className="flex flex-col grow">
         <Outlet />
       </main>

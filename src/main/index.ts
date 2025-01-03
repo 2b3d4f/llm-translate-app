@@ -18,7 +18,13 @@ function createWindow(): void {
     // remove the default titlebar
     titleBarStyle: 'hidden',
     // expose window controlls in Windows/Linux
-    ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
+    ...(process.platform !== 'darwin'
+      ? {
+          titleBarOverlay: {
+            color: 'rgba(0, 0, 0, 0)'
+          }
+        }
+      : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false

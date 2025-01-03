@@ -62,5 +62,27 @@
   #root {
     @apply h-full flex flex-col;
   }
+}
 
+@layer components {
+  :root {
+    --titlebar-color: var(--foreground);
+    --titlebar-symbol-color: var(--background);
+  }
+  .titlebar {
+    width: env(titlebar-area-width, 100%);
+    height: env(titlebar-area-height, 50px);
+    padding-left: env(titlebar-area-x, 0);
+    -webkit-app-region: drag;
+    user-select: none;
+    button, a {
+      -webkit-app-region: no-drag;
+      max-height: env(titlebar-area-height, 50px);
+    }
+  }
+  .titlebar--fixed {
+    position: fixed;
+    left: env(titlebar-area-x, 0);
+    top: env(titlebar-area-y, 0);
+  }
 }
