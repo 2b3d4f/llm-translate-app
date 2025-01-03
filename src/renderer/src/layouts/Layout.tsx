@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router'
 import { createContext, useState } from 'react'
+import Header from '@renderer/components/Header'
 
 export interface TranslationState {
   text: string
@@ -28,7 +29,8 @@ export default function Layout(): JSX.Element {
         setTargetLang
       }}
     >
-      <main className="flex flex-col">
+      <Header />
+      <main className="flex flex-col grow">
         <Outlet />
       </main>
     </TranslationContext.Provider>

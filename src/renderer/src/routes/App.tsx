@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
 import { trpcReact } from '@renderer/trpc'
-import Header from '@renderer/components/Header'
 import { TranslationContext } from '@renderer/layouts/Layout'
 
 import { cn } from '@renderer/lib/utils'
@@ -54,7 +53,6 @@ function App(): JSX.Element {
 
   return (
     <>
-      <Header />
       <div className="grow grid grid-cols-2 m-4 gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor="input">Input</Label>
