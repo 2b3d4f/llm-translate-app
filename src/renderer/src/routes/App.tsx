@@ -53,7 +53,7 @@ function App(): JSX.Element {
 
   return (
     <>
-      <div className="grow grid grid-cols-2 m-4 gap-4">
+      <div className="grow grid grid-cols-2 m-4 mt-2 gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor="input">Input</Label>
           <Textarea

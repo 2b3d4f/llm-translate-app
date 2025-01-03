@@ -10,19 +10,18 @@ function TitleBar(): JSX.Element {
         <div className="flex gap-2">
           <Button variant="ghost" size="icon" asChild>
             <Link to="/">
-              <Home />
+              <Home absoluteStrokeWidth strokeWidth={1} />
             </Link>
           </Button>
-          <h1 className="text-sm font-bold">Translator app</h1>
+          <h1 className="text-[12px]">Translator app</h1>
         </div>
-        <div>
+        <div className="flex gap-2">
           <ModeToggle />
           <Button variant="ghost" size="sm" asChild>
             <Link to="/about">
-              <HelpCircle />
+              <HelpCircle absoluteStrokeWidth strokeWidth={1} />
             </Link>
           </Button>
-          {/* <ModeToggle /> */}
         </div>
       </header>
     </>
