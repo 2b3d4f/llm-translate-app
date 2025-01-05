@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-[100vh] leading-[1.6]
+  }
+}
+
+@layer base {
+  body {
+    @apply flex items-center justify-center overflow-hidden bg-[url('./wavy-lines.svg')] bg-cover select-none bg-zinc-900;
+  }
+  #root {
+    @apply flex items-center justify-center flex-col mb-20;
+  }
+}
