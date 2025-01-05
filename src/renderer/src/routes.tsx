@@ -4,7 +4,7 @@ import App from './routes/App'
 
 const routes = createRoutesFromElements(
   <>
-    <Route>
+    <Route path="/">
       <Route index element={<App />} />
     </Route>
   </>
