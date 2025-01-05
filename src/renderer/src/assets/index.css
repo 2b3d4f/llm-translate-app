@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply min-h-[100vh] leading-[1.6]
+    @apply min-h-[100vh] leading-[1.6];
   }
 }
 
@@ -14,5 +14,18 @@
   }
   #root {
     @apply flex items-center justify-center flex-col mb-20;
+  }
+}
+
+@layer components {
+  .title-bar {
+    & > * {
+      max-height: env(titlebar-area-height, 50px);
+    }
+    & button,
+    & a,
+    & input {
+      -webkit-app-region: no-drag;
+    }
   }
 }
