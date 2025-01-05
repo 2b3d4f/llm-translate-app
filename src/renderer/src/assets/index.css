@@ -65,7 +65,7 @@
   }
   #root {
     padding-block-start: env(titlebar-area-height, 50px);
-    @apply grow;
+    @apply grow flex flex-col;
   }
 }
 
