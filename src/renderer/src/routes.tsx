@@ -1,11 +1,12 @@
 import { createRoutesFromElements, Route } from 'react-router'
 
 import App from './routes/App'
+import Hello from './routes/Hello'
 
 const routes = createRoutesFromElements(
   <>
-    <Route path="/">
-      <Route index element={<App />} />
+    <Route path="/" element={<App />}>
+      <Route index element={<Hello />} />
     </Route>
   </>
 )
