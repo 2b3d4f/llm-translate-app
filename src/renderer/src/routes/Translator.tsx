@@ -24,9 +24,11 @@ export default function Translator(): JSX.Element {
   return (
     <div className="grow flex flex-col">
       {/* <h1>Translator</h1> */}
-      <div className="grow grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 gap-4 p-4 pt-0">
+      <div className="grow grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 gap-2 sm:gap-4 p-2 sm:p-4 pt-0">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="input">Input</Label>
+          <Label htmlFor="input" className="sr-only sm:not-sr-only">
+            Input
+          </Label>
           <Textarea
             id="input"
             placeholder="Enter text to translate"
@@ -37,7 +39,7 @@ export default function Translator(): JSX.Element {
               <SelectTrigger className="sm:max-w-96">
                 <SelectValue placeholder="Language" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-[45vh] sm:max-h-none">
                 {languages.map((lang) => (
                   <SelectItem key={lang.code} value={lang.code}>
                     {lang.name}
@@ -49,7 +51,9 @@ export default function Translator(): JSX.Element {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="output">Output</Label>
+          <Label htmlFor="output" className="sr-only sm:not-sr-only">
+            Output
+          </Label>
           <Textarea
             id="output"
             placeholder="Translation will appear here"
