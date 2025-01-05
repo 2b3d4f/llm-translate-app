@@ -1,4 +1,4 @@
-# promptemplate-app
+# llm-translate-app
 
 An Electron application with React and TypeScript
 
