@@ -11,7 +11,7 @@ function TitleBarBase({ children }: TitleBarBaseProps): JSX.Element {
         top: 'env(titlebar-area-y, 0)',
         height: 'env(titlebar-area-height, 50px)',
         width: 'env(titlebar-area-width, 100%)',
-        '-webkit-app-region': 'drag'
+        WebkitAppRegion: 'drag'
       }}
     >
       {children}
