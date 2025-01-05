@@ -10,11 +10,18 @@ function TitleBarBase({ children }: TitleBarBaseProps): JSX.Element {
         left: 'env(titlebar-area-x, 0)',
         top: 'env(titlebar-area-y, 0)',
         height: 'env(titlebar-area-height, 50px)',
-        width: 'env(titlebar-area-width, 100%)',
+        width: '100%',
         WebkitAppRegion: 'drag'
       }}
     >
-      {children}
+      <div
+        className="h-full"
+        style={{
+          width: 'env(titlebar-area-width, 100%)'
+        }}
+      >
+        {children}
+      </div>
     </header>
   )
 }
