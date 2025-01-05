@@ -5,7 +5,7 @@ interface TitleBarBaseProps {
 function TitleBarBase({ children }: TitleBarBaseProps): JSX.Element {
   return (
     <header
-      className="fixed"
+      className="fixed title-bar"
       style={{
         left: 'env(titlebar-area-x, 0)',
         top: 'env(titlebar-area-y, 0)',
