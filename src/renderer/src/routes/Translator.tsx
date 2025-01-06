@@ -15,13 +15,6 @@ import {
   CommandList
 } from '@renderer/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@renderer/components/ui/popover'
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue
-// } from '@renderer/components/ui/select'
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -95,18 +88,6 @@ export default function Translator(): JSX.Element {
                 </Command>
               </PopoverContent>
             </Popover>
-            {/* <Select>
-              <SelectTrigger className="sm:max-w-96">
-                <SelectValue placeholder="Language" />
-              </SelectTrigger>
-              <SelectContent className="max-h-[45vh] sm:max-h-none">
-                {languages.map((lang) => (
-                  <SelectItem key={lang.code} value={lang.code}>
-                    {lang.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select> */}
             <Button className="sm:max-w-32 w-3/12 min-w-24">Translate</Button>
           </div>
         </div>
