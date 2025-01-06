@@ -16,7 +16,7 @@ function TitleBar(): JSX.Element {
                 <HelpCircle absoluteStrokeWidth strokeWidth={1.5} />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent className="bg-background text-foreground border border-input shadow-sm">
               <p>About</p>
             </TooltipContent>
           </Tooltip>
