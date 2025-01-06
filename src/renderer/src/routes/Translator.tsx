@@ -75,9 +75,9 @@ export default function Translator(): JSX.Element {
                       {languages.map((language) => (
                         <CommandItem
                           key={language.name}
-                          value={language.code}
-                          onSelect={(currentValue) => {
-                            setValue(currentValue === value ? '' : currentValue)
+                          value={language.name}
+                          onSelect={() => {
+                            setValue(value === language.code ? '' : language.code)
                             setOpen(false)
                           }}
                         >
