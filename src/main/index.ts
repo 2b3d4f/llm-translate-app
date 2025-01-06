@@ -1,7 +1,8 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, nativeTheme } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { installExtension, REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 
 function createWindow(): void {
   // Create the browser window.
@@ -11,6 +12,15 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
+    titleBarStyle: 'hidden',
+    ...(process.platform !== 'darwin'
+      ? {
+          titleBarOverlay: {
+            color: nativeTheme.shouldUseDarkColors ? 'rgba(0, 0, 0, 0)' : 'rgba(255, 255, 255, 0)',
+            symbolColor: nativeTheme.shouldUseDarkColors ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'
+          }
+        }
+      : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -41,6 +51,12 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
+
+  if (is.dev) {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((ext) => console.log('Added Extension: ', ext))
+      .catch((err) => console.log('An error occurred: ', err))
+  }
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
