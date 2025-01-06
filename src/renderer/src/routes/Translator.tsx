@@ -17,14 +17,14 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@renderer/components/ui/popover'
 
 const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'es', name: 'Spanish' },
-  { code: 'fr', name: 'French' },
-  { code: 'de', name: 'German' },
-  { code: 'it', name: 'Italian' },
-  { code: 'ja', name: 'Japanese' },
-  { code: 'ko', name: 'Korean' },
-  { code: 'zh', name: 'Chinese' }
+  { code: 'english_en-us', name: 'English (US)' },
+  { code: 'spanish_es', name: 'Spanish' },
+  { code: 'french_fr', name: 'French' },
+  { code: 'german_de', name: 'German' },
+  { code: 'italian_it', name: 'Italian' },
+  { code: 'japanese_ja', name: 'Japanese' },
+  { code: 'korean_ko', name: 'Korean' },
+  { code: 'chinese_zh', name: 'Chinese' }
 ]
 
 export default function Translator(): JSX.Element {
