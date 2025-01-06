@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useMediaQuery } from '@uidotdev/usehooks'
 
 import { Check, ChevronsUpDown } from 'lucide-react'
 
@@ -14,9 +15,15 @@ import {
   CommandItem,
   CommandList
 } from '@renderer/components/ui/command'
+import { Drawer, DrawerContent, DrawerTrigger } from '@renderer/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '@renderer/components/ui/popover'
 
-const languages = [
+interface Language {
+  code: string
+  name: string
+}
+
+const languages: Language[] = [
   { code: 'english_en-us', name: 'English (US)' },
   { code: 'spanish_es', name: 'Spanish' },
   { code: 'french_fr', name: 'French' },
@@ -27,10 +34,79 @@ const languages = [
   { code: 'chinese_zh', name: 'Chinese' }
 ]
 
-export default function Translator(): JSX.Element {
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState('')
+function LanguageList({
+  setOpen,
+  setSelectedLanguage
+}: {
+  setOpen: (open: boolean) => void
+  setSelectedLanguage: (language: Language | null) => void
+}): JSX.Element {
+  return (
+    <Command>
+      <CommandInput placeholder="Search language..." />
+      <CommandList>
+        <CommandEmpty>No language found.</CommandEmpty>
+        <CommandGroup>
+          {languages.map((language) => (
+            <CommandItem
+              key={language.code}
+              value={language.code}
+              onSelect={(code) => {
+                setSelectedLanguage(languages.find((language) => language.code === code) || null)
+                setOpen(false)
+              }}
+            >
+              {language.name}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      </CommandList>
+    </Command>
+  )
+}
 
+function LanguageBoxResponsive(): JSX.Element {
+  const [open, setOpen] = useState(false)
+  const isDekstop = useMediaQuery('(min-width: 640px)')
+  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null)
+
+  if (isDekstop) {
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full sm:max-w-96 flex justify-between"
+          >
+            {selectedLanguage ? selectedLanguage.name : 'Select language...'}
+            <ChevronsUpDown className="opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="p-0">
+          <LanguageList setOpen={setOpen} setSelectedLanguage={setSelectedLanguage} />
+        </PopoverContent>
+      </Popover>
+    )
+  }
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <Button variant="outline" className="w-full sm:max-w-96 flex justify-between">
+          {selectedLanguage ? selectedLanguage.name : 'Select language...'}
+          <ChevronsUpDown className="opacity-50" />
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <LanguageList setOpen={setOpen} setSelectedLanguage={setSelectedLanguage} />
+      </DrawerContent>
+    </Drawer>
+  )
+}
+
+export default function Translator(): JSX.Element {
   return (
     <div className="grow flex flex-col">
       {/* <h1>Translator</h1> */}
@@ -45,49 +121,7 @@ export default function Translator(): JSX.Element {
             className="grow resize-none"
           ></Textarea>
           <div className="flex gap-2 justify-center">
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={open}
-                  className="w-full sm:max-w-96 flex justify-between"
-                >
-                  {value
-                    ? languages.find((language) => language.code === value)?.name
-                    : 'Select language...'}
-                  <ChevronsUpDown className="opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="p-0">
-                <Command>
-                  <CommandInput placeholder="Search language..." />
-                  <CommandList>
-                    <CommandEmpty>No language found.</CommandEmpty>
-                    <CommandGroup>
-                      {languages.map((language) => (
-                        <CommandItem
-                          key={language.name}
-                          value={language.code}
-                          onSelect={(currentValue) => {
-                            setValue(currentValue === value ? '' : currentValue)
-                            setOpen(false)
-                          }}
-                        >
-                          {language.name}
-                          <Check
-                            className={cn(
-                              'ml-auto',
-                              value === language.code ? 'opacity-100' : 'opacity-0'
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <LanguageBoxResponsive />
             <Button className="sm:max-w-32 w-3/12 min-w-24">Translate</Button>
           </div>
         </div>
