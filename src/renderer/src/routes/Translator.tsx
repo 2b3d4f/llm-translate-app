@@ -15,7 +15,13 @@ import {
   CommandItem,
   CommandList
 } from '@renderer/components/ui/command'
-import { Drawer, DrawerContent, DrawerTrigger } from '@renderer/components/ui/drawer'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerTitle,
+  DrawerHeader
+} from '@renderer/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '@renderer/components/ui/popover'
 
 interface Language {
@@ -60,7 +66,12 @@ function LanguageList({
               className="flex justify-between"
             >
               {language.name}
-              {selectedLanguage?.code === language.code && <Check className="w-4 h-4" />}
+              <Check
+                className={cn(
+                  'ml-auto',
+                  selectedLanguage?.code === language.code ? 'opacity-100' : 'opacity-0'
+                )}
+              />
             </CommandItem>
           ))}
         </CommandGroup>
@@ -108,6 +119,9 @@ function LanguageBoxResponsive(): JSX.Element {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>Translate to</DrawerTitle>
+        </DrawerHeader>
         <LanguageList
           setOpen={setOpen}
           setSelectedLanguage={setSelectedLanguage}
