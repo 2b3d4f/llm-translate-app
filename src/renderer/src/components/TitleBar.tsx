@@ -6,8 +6,8 @@ import { HelpCircle } from 'lucide-react'
 function TitleBar(): JSX.Element {
   return (
     <TitleBarBase>
-      <div className="h-full *:max-h-full flex items-center justify-between bg-opacity-0 hover:bg-opacity-50 bg-white px-4">
-        <div className="text-[12px] text-black">Electron</div>
+      <div className="h-full *:max-h-full flex items-center justify-between bg-opacity-0 hover:bg-opacity-50 px-4">
+        <div className="text-[12px]">Electron</div>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
