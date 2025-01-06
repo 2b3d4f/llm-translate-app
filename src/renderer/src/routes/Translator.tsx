@@ -36,10 +36,12 @@ const languages: Language[] = [
 
 function LanguageList({
   setOpen,
-  setSelectedLanguage
+  setSelectedLanguage,
+  selectedLanguage
 }: {
   setOpen: (open: boolean) => void
   setSelectedLanguage: (language: Language | null) => void
+  selectedLanguage: Language | null
 }): JSX.Element {
   return (
     <Command>
@@ -55,8 +57,10 @@ function LanguageList({
                 setSelectedLanguage(languages.find((language) => language.code === code) || null)
                 setOpen(false)
               }}
+              className="flex justify-between"
             >
               {language.name}
+              {selectedLanguage?.code === language.code && <Check className="w-4 h-4" />}
             </CommandItem>
           ))}
         </CommandGroup>
@@ -85,7 +89,11 @@ function LanguageBoxResponsive(): JSX.Element {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-0">
-          <LanguageList setOpen={setOpen} setSelectedLanguage={setSelectedLanguage} />
+          <LanguageList
+            setOpen={setOpen}
+            setSelectedLanguage={setSelectedLanguage}
+            selectedLanguage={selectedLanguage}
+          />
         </PopoverContent>
       </Popover>
     )
@@ -100,7 +108,11 @@ function LanguageBoxResponsive(): JSX.Element {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <LanguageList setOpen={setOpen} setSelectedLanguage={setSelectedLanguage} />
+        <LanguageList
+          setOpen={setOpen}
+          setSelectedLanguage={setSelectedLanguage}
+          selectedLanguage={selectedLanguage}
+        />
       </DrawerContent>
     </Drawer>
   )
