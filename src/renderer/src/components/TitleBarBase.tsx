@@ -2,7 +2,7 @@ interface TitleBarBaseProps {
   children: React.ReactNode
 }
 
-function TitleBarBase({ children }: TitleBarBaseProps): JSX.Element {
+function TitlebarBase({ children }: TitleBarBaseProps): JSX.Element {
   return (
     <header
       className="fixed title-bar"
@@ -26,4 +26,4 @@ function TitleBarBase({ children }: TitleBarBaseProps): JSX.Element {
   )
 }
 
-export default TitleBarBase
+export { TitlebarBase }

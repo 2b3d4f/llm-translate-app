@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router'
-import TitleBar from '../components/TitleBar'
+import { Titlebar } from '../components/Titlebar'
 
 function App(): JSX.Element {
   return (
     <>
-      <TitleBar />
+      <Titlebar />
       <Outlet />
     </>
   )
