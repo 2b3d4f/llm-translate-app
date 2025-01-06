@@ -24,7 +24,7 @@ export default function Translator(): JSX.Element {
   return (
     <div className="grow flex flex-col">
       {/* <h1>Translator</h1> */}
-      <div className="grow grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 gap-2 sm:gap-4 p-2 sm:p-4 pt-0">
+      <div className="grow grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 gap-2 sm:gap-4 transition-[padding] p-2 sm:p-4 sm:pt-2">
         <div className="flex flex-col gap-2">
           <Label htmlFor="input" className="sr-only sm:not-sr-only">
             Input
