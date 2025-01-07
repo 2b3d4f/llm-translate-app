@@ -1,3 +1,5 @@
+// @ts-check
+
 import globals from 'globals'
 import parseForESLint from '@typescript-eslint/parser'
 import tseslint from 'typescript-eslint'
