@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from './ui/dialog'
+import { Suspense } from 'react'
 
 interface AboutDialogProps {
   children: React.ReactNode
@@ -13,15 +14,17 @@ interface AboutDialogProps {
 
 function AboutDialog({ children }: AboutDialogProps): JSX.Element {
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>LLM Translate</DialogTitle>
-          <DialogDescription>Nothing here yet... For now.</DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+    <Suspense>
+      <Dialog>
+        <DialogTrigger asChild>{children}</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>LLM Translate</DialogTitle>
+            <DialogDescription>Nothing here yet... For now.</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </Suspense>
   )
 }
 
