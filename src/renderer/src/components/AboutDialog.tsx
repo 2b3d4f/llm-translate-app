@@ -52,7 +52,9 @@ function AboutDialog({ children }: AboutDialogProps): JSX.Element {
             <Terminal />
             <div className="flex-1 space-y-1">
               <p className="text-sm font-medium leading-none">Ping</p>
-              <p className="text-sm text-muted-foreground">Send ping to the main process.</p>
+              <p className="text-sm text-muted-foreground">
+                Send ping to the main process. See console for response.
+              </p>
             </div>
             <Button onClick={handlePing} variant={'outline'}>
               Ping

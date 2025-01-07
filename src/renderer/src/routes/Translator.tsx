@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@renderer/components/ui/select'
+import { trpcReact } from '@renderer/trpc'
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -21,6 +22,13 @@ const languages = [
 ]
 
 export default function Translator(): JSX.Element {
+  const { mutateAsync: mockTranslate } = trpcReact.mockTranslate.useMutation()
+
+  const handleTranslate = async () => {
+    const result = await mockTranslate({ text: 'Hello', language: 'en' })
+    console.log(result)
+  }
+
   return (
     <div className="grow flex flex-col">
       {/* <h1>Translator</h1> */}
@@ -47,7 +55,9 @@ export default function Translator(): JSX.Element {
                 ))}
               </SelectContent>
             </Select>
-            <Button className="sm:max-w-32 w-3/12 min-w-24">Translate</Button>
+            <Button className="sm:max-w-32 w-3/12 min-w-24" onClick={handleTranslate}>
+              Translate
+            </Button>
           </div>
         </div>
         <div className="flex flex-col gap-2">
