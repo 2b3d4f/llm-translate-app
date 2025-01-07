@@ -17,9 +17,9 @@ interface AboutDialogProps {
 
 function AboutDialog({ children }: AboutDialogProps): JSX.Element {
   return (
-    <Suspense>
-      <Dialog>
-        <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <Suspense>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>LLM Translate</DialogTitle>
@@ -36,8 +36,8 @@ function AboutDialog({ children }: AboutDialogProps): JSX.Element {
             <ModeToggle />
           </div>
         </DialogContent>
-      </Dialog>
-    </Suspense>
+      </Suspense>
+    </Dialog>
   )
 }
 
