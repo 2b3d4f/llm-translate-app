@@ -58,7 +58,7 @@ app.whenReady().then(() => {
 
   if (is.dev) {
     installExtension(REACT_DEVELOPER_TOOLS)
-      .then((ext) => console.log('Added Extension: ', ext))
+      .then((ext) => console.log('Added Extension: ', ext.name))
       .catch((err) => console.log('An error occurred: ', err))
   }
 
