@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Label } from '@renderer/components/ui/label'
 import { Textarea } from '@renderer/components/ui/textarea'
 import { Button } from '@renderer/components/ui/button'
@@ -22,11 +24,29 @@ const languages = [
 ]
 
 export default function Translator(): JSX.Element {
-  const { mutateAsync: mockTranslate } = trpcReact.mockTranslate.useMutation()
+  const [input, setInput] = useState('')
+  const [output, setOutput] = useState('')
+  const [language, setLanguage] = useState<string | undefined>(undefined)
+  const [loading, setLoading] = useState(false)
+
+  // const { mutateAsync: mockTranslate } = trpcReact.mockTranslate.useMutation()
+  const { mutateAsync: translate } = trpcReact.translate.useMutation()
 
   const handleTranslate = async (): Promise<void> => {
-    const result = await mockTranslate({ text: 'Hello', language: 'en' })
-    console.log(result)
+    setLoading(true)
+    try {
+      const { text } = await translate({
+        text: input,
+        language: language || '',
+        model: 'gpt-4o-mini'
+      })
+      setOutput(text)
+    } catch (error) {
+      console.error(error)
+      setOutput('Sorry, an error occurred while translating the text.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -41,9 +61,10 @@ export default function Translator(): JSX.Element {
             id="input"
             placeholder="Enter text to translate"
             className="grow resize-none"
+            onChange={(e) => setInput(e.target.value)}
           ></Textarea>
           <div className="flex gap-2 justify-center">
-            <Select>
+            <Select value={language} onValueChange={(value) => setLanguage(value)}>
               <SelectTrigger className="sm:max-w-96">
                 <SelectValue placeholder="Language" />
               </SelectTrigger>
@@ -55,7 +76,11 @@ export default function Translator(): JSX.Element {
                 ))}
               </SelectContent>
             </Select>
-            <Button className="sm:max-w-32 w-3/12 min-w-24" onClick={handleTranslate}>
+            <Button
+              className="sm:max-w-32 w-3/12 min-w-24"
+              onClick={handleTranslate}
+              disabled={!input.trim() || !language || loading}
+            >
               Translate
             </Button>
           </div>
@@ -68,6 +93,7 @@ export default function Translator(): JSX.Element {
             id="output"
             placeholder="Translation will appear here"
             className="grow resize-none"
+            value={loading ? 'Translating...' : output}
             readOnly
           ></Textarea>
         </div>
