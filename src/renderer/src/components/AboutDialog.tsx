@@ -8,6 +8,8 @@ import {
 } from './ui/dialog'
 import { Suspense } from 'react'
 
+import { ModeToggle } from './mode-toggle'
+
 interface AboutDialogProps {
   children: React.ReactNode
 }
@@ -20,7 +22,9 @@ function AboutDialog({ children }: AboutDialogProps): JSX.Element {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>LLM Translate</DialogTitle>
-            <DialogDescription>Nothing here yet... For now.</DialogDescription>
+            <DialogDescription asChild>
+              <ModeToggle />
+            </DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>
