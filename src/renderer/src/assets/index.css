@@ -60,6 +60,15 @@
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer base {
   body {
     @apply min-h-[100vh] flex flex-col;
   }
