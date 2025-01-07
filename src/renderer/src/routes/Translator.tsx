@@ -24,7 +24,7 @@ const languages = [
 export default function Translator(): JSX.Element {
   const { mutateAsync: mockTranslate } = trpcReact.mockTranslate.useMutation()
 
-  const handleTranslate = async () => {
+  const handleTranslate = async (): Promise<void> => {
     const result = await mockTranslate({ text: 'Hello', language: 'en' })
     console.log(result)
   }
