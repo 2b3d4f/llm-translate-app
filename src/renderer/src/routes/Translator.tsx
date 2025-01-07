@@ -11,14 +11,14 @@ import {
 import { trpcReact } from '@renderer/trpc'
 
 const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'es', name: 'Spanish' },
-  { code: 'fr', name: 'French' },
-  { code: 'de', name: 'German' },
-  { code: 'it', name: 'Italian' },
-  { code: 'ja', name: 'Japanese' },
-  { code: 'ko', name: 'Korean' },
-  { code: 'zh', name: 'Chinese' }
+  { code: 'english', name: 'English' },
+  { code: 'spanish', name: 'Spanish' },
+  { code: 'french', name: 'French' },
+  { code: 'german', name: 'German' },
+  { code: 'italian', name: 'Italian' },
+  { code: 'japanese', name: 'Japanese' },
+  { code: 'korean', name: 'Korean' },
+  { code: 'chinese', name: 'Chinese' }
 ]
 
 export default function Translator(): JSX.Element {
